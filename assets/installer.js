@@ -45,9 +45,19 @@
         // Обновляем текст кнопки Next (кроме страниц 6 и 7, где логика отдельная)
         if (nextBtn && step !== 5 && step !== 6) {
             if (step === totalSteps - 1) {
-                nextBtn.textContent = 'Finish';
+                // Use translation if available
+                if (window.translations && window.currentLang && window.translations[window.currentLang] && window.translations[window.currentLang]['installer.finish']) {
+                    nextBtn.textContent = window.translations[window.currentLang]['installer.finish'];
+                } else {
+                    nextBtn.textContent = 'Finish';
+                }
             } else {
-                nextBtn.textContent = 'Next >';
+                // Use translation if available
+                if (window.translations && window.currentLang && window.translations[window.currentLang] && window.translations[window.currentLang]['installer.next']) {
+                    nextBtn.textContent = window.translations[window.currentLang]['installer.next'];
+                } else {
+                    nextBtn.textContent = 'Next >';
+                }
             }
         }
         
@@ -69,7 +79,12 @@
             if (backBtn) backBtn.disabled = true;
             if (nextBtn) {
                 nextBtn.disabled = false;
-                nextBtn.textContent = 'Finish';
+                // Use translation if available
+                if (window.translations && window.currentLang && window.translations[window.currentLang] && window.translations[window.currentLang]['installer.finish']) {
+                    nextBtn.textContent = window.translations[window.currentLang]['installer.finish'];
+                } else {
+                    nextBtn.textContent = 'Finish';
+                }
             }
             if (reinstallBtn) reinstallBtn.style.display = 'inline-block';
         } else {
@@ -84,7 +99,12 @@
         
         // Обновляем прогресс
         if (progressText) {
-            progressText.textContent = `Step ${step + 1} of ${totalSteps}`;
+            // Use translation function if available, otherwise default to English
+            if (window.updateStepCounterTranslation) {
+                window.updateStepCounterTranslation(step + 1, totalSteps);
+            } else {
+                progressText.textContent = `Step ${step + 1} of ${totalSteps}`;
+            }
         }
         
         currentStep = step;

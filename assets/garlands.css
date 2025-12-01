@@ -35,37 +35,35 @@
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
     border: 1px solid #000;
-    box-shadow: 0 0 2px currentColor;
+    /* Use single filter for better performance */
+    filter: drop-shadow(0 0 3px currentColor);
     transition: opacity 0.3s ease;
+    /* Performance optimizations */
+    will-change: opacity, filter;
+    contain: layout style paint;
+    transform: translateZ(0); /* Force GPU acceleration */
+    backface-visibility: hidden; /* Prevent flickering */
 }
 
 .garland-light.on {
     opacity: 1;
-    box-shadow: 
-        0 0 4px currentColor,
-        0 0 8px currentColor,
-        0 0 12px currentColor;
+    filter: drop-shadow(0 0 6px currentColor);
     animation: glow-pulse 1.5s ease-in-out infinite;
 }
 
 .garland-light.off {
     opacity: 0.3;
+    filter: drop-shadow(0 0 1px currentColor);
 }
 
 @keyframes glow-pulse {
     0%, 100% {
         opacity: 1;
-        box-shadow: 
-            0 0 4px currentColor,
-            0 0 8px currentColor,
-            0 0 12px currentColor;
+        filter: drop-shadow(0 0 6px currentColor);
     }
     50% {
-        opacity: 0.6;
-        box-shadow: 
-            0 0 2px currentColor,
-            0 0 4px currentColor,
-            0 0 6px currentColor;
+        opacity: 0.75;
+        filter: drop-shadow(0 0 3px currentColor);
     }
 }
 

@@ -6,6 +6,10 @@
     const garlands = [];
     let canvas, ctx;
     let animationId;
+    let needsRedraw = false;
+    let lastScrollY = window.scrollY;
+    let lastUpdateTime = 0;
+    const UPDATE_THROTTLE = 16; // ~60fps max
     
     // Класс для гирлянды (статичная арка)
     class Garland {
@@ -17,6 +21,8 @@
             this.color = color;
             this.headerElement = headerElement;
             this.lights = [];
+            this.lastRect = null;
+            this.cachedPositions = [];
             
             // Вычисляем параметры арки
             const distance = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
@@ -42,43 +48,73 @@
         }
         
         createLights() {
+            // Предвычисляем все позиции
             for (let i = 0; i < this.lightCount; i++) {
-                const t = i / (this.lightCount - 1); // От 0 до 1
+                const t = i / (this.lightCount - 1);
                 const point = this.getArcPoint(t);
+                this.cachedPositions.push({ x: point.x, y: point.y });
                 
                 const light = document.createElement('div');
                 light.className = `garland-light color-${this.color}`;
-                light.style.left = (point.x - 4) + 'px';
-                light.style.top = (point.y - 4) + 'px';
+                // Используем transform для лучшей производительности
+                light.style.transform = `translate(${point.x - 4}px, ${point.y - 4}px)`;
                 light.style.animationDelay = (i * 0.1) + 's';
                 light.classList.add('on');
                 
                 garlandsContainer.appendChild(light);
-                this.lights.push({ element: light });
+                this.lights.push({ element: light, x: point.x, y: point.y });
             }
         }
         
         update() {
             // Обновляем позиции на основе текущей позиции заголовка
-            if (!this.headerElement) return;
+            if (!this.headerElement) return false;
             
             const rect = this.headerElement.getBoundingClientRect();
+            
+            // Проверяем, изменилась ли позиция (с небольшой погрешностью для оптимизации)
+            const threshold = 1;
+            if (this.lastRect && 
+                Math.abs(this.lastRect.left - rect.left) < threshold &&
+                Math.abs(this.lastRect.right - rect.right) < threshold &&
+                Math.abs(this.lastRect.top - rect.top) < threshold &&
+                Math.abs(this.lastRect.height - rect.height) < threshold) {
+                return false; // Позиция не изменилась
+            }
+            
+            this.lastRect = {
+                left: rect.left,
+                right: rect.right,
+                top: rect.top,
+                height: rect.height
+            };
+            
             this.startX = rect.left;
             this.endX = rect.right;
             this.startY = rect.top + rect.height / 2;
             this.endY = this.startY;
             
             // Пересчитываем глубину провисания
-            const distance = Math.sqrt(Math.pow(this.endX - this.startX, 2) + Math.pow(this.endY - this.startY, 2));
+            const distance = this.endX - this.startX;
             this.sag = Math.min(30, distance * 0.1);
             
-            // Обновляем позиции лампочек
-            this.lights.forEach(({ element }, index) => {
+            // Обновляем позиции лампочек только если они изменились
+            let positionsChanged = false;
+            this.lights.forEach((lightData, index) => {
                 const t = index / (this.lightCount - 1);
                 const point = this.getArcPoint(t);
-                element.style.left = (point.x - 4) + 'px';
-                element.style.top = (point.y - 4) + 'px';
+                
+                // Проверяем, изменилась ли позиция
+                if (Math.abs(lightData.x - point.x) > threshold || Math.abs(lightData.y - point.y) > threshold) {
+                    lightData.x = point.x;
+                    lightData.y = point.y;
+                    // Используем transform для лучшей производительности
+                    lightData.element.style.transform = `translate(${point.x - 4}px, ${point.y - 4}px)`;
+                    positionsChanged = true;
+                }
             });
+            
+            return positionsChanged;
         }
         
         drawLines() {
@@ -88,8 +124,8 @@
             ctx.strokeStyle = '#333';
             ctx.lineWidth = 2;
             
-            // Рисуем параболическую кривую
-            const steps = 50; // Количество точек для плавной кривой
+            // Рисуем параболическую кривую (уменьшаем количество точек для производительности)
+            const steps = 30; // Уменьшено с 50 до 30
             for (let i = 0; i <= steps; i++) {
                 const t = i / steps;
                 const point = this.getArcPoint(t);
@@ -124,7 +160,7 @@
                 element: header,
                 startX: rect.left,
                 endX: rect.right,
-                y: rect.top + rect.height / 2 // Центр по вертикали
+                y: rect.top + rect.height / 2
             });
         });
         
@@ -150,6 +186,8 @@
             const garland = new Garland(startX, startY, endX, endY, color, header.element);
             garlands.push(garland);
         });
+        
+        needsRedraw = true;
     }
     
     // Canvas для отрисовки линий
@@ -159,57 +197,65 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         ctx = canvas.getContext('2d');
-        ctx.imageSmoothingEnabled = false; // Пиксельный стиль
+        ctx.imageSmoothingEnabled = false;
         garlandsContainer.appendChild(canvas);
         
         // Обновляем размер canvas при изменении окна
+        let resizeTimeout;
         window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            ctx.imageSmoothingEnabled = false;
-        });
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                ctx.imageSmoothingEnabled = false;
+                needsRedraw = true;
+            }, 100);
+        }, { passive: true });
     }
     
-    // Анимация мигания лампочек
-    function animateLights() {
-        garlands.forEach(garland => {
-            garland.lights.forEach(({ element }, index) => {
-                const wavePosition = (Date.now() / 200) % garland.lights.length;
-                const distanceFromWave = Math.abs(index - wavePosition);
-                
-                if (distanceFromWave < 2) {
-                    element.classList.add('on');
-                    element.classList.remove('off');
-                } else if (Math.random() > 0.9) {
-                    if (Math.random() > 0.5) {
-                        element.classList.add('on');
-                        element.classList.remove('off');
-                    } else {
-                        element.classList.remove('on');
-                        element.classList.add('off');
-                    }
-                }
-            });
-        });
-    }
-    
-    // Основной цикл анимации
-    function animate() {
+    // Основной цикл анимации (оптимизированный)
+    function animate(currentTime) {
         if (!canvas || !ctx) return;
         
-        // Очищаем canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Throttle updates
+        const timeDelta = currentTime - lastUpdateTime;
+        if (timeDelta < UPDATE_THROTTLE) {
+            animationId = requestAnimationFrame(animate);
+            return;
+        }
+        lastUpdateTime = currentTime;
         
-        // Обновляем все гирлянды
+        // Обновляем позиции только если нужно
+        let shouldRedraw = needsRedraw;
         garlands.forEach(garland => {
-            garland.update();
-            garland.drawLines();
+            if (garland.update()) {
+                shouldRedraw = true;
+            }
         });
         
-        // Анимация мигания
-        animateLights();
+        // Перерисовываем canvas только если позиции изменились
+        if (shouldRedraw) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            garlands.forEach(garland => {
+                garland.drawLines();
+            });
+            needsRedraw = false;
+        }
         
         animationId = requestAnimationFrame(animate);
+    }
+    
+    // Throttled scroll handler
+    function handleScroll() {
+        const currentScrollY = window.scrollY;
+        
+        // Проверяем, действительно ли изменилась позиция скролла
+        if (Math.abs(currentScrollY - lastScrollY) < 5) {
+            return;
+        }
+        
+        lastScrollY = currentScrollY;
+        needsRedraw = true;
     }
     
     // Инициализация
@@ -219,15 +265,11 @@
         // Ждём загрузки страницы перед созданием гирлянд
         setTimeout(() => {
             createGarlandsForHeaders();
-            animate();
+            animate(0);
         }, 500);
         
-        // Обновляем позиции при скролле
-        window.addEventListener('scroll', () => {
-            garlands.forEach(garland => {
-                garland.update();
-            });
-        }, { passive: true });
+        // Throttled scroll handler
+        window.addEventListener('scroll', handleScroll, { passive: true });
     }
     
     // Инициализация при загрузке
@@ -258,5 +300,5 @@
                 createGarlandsForHeaders();
             }, 100);
         }, 300);
-    });
+    }, { passive: true });
 })();

@@ -53,6 +53,40 @@
             width: 100%;
         }
         
+        /* Language selector */
+        .language-selector {
+            position: absolute;
+            top: 8px;
+            right: 16px;
+            display: flex;
+            gap: 4px;
+            z-index: 1001;
+        }
+        
+        .lang-btn {
+            font-family: 'W95FA', 'MS Sans Serif', 'MS UI Gothic', sans-serif;
+            font-size: 12px;
+            padding: 4px 8px;
+            border: 1px outset #c0c0c0;
+            background: linear-gradient(to bottom, #c0c0c0 0%, #808080 100%);
+            color: #000;
+            cursor: pointer;
+            box-shadow: 
+                inset -1px -1px 0px #000,
+                inset 1px 1px 0px #fff;
+        }
+        
+        .lang-btn:hover {
+            background: linear-gradient(to bottom, #d4d0c8 0%, #c0c0c0 100%);
+        }
+        
+        .lang-btn.active {
+            border: 1px inset #c0c0c0;
+            box-shadow: 
+                inset 1px 1px 0px #000,
+                inset -1px -1px 0px #fff;
+        }
+        
         /* Фиксированный footer */
         .taskbar {
             position: fixed !important;
@@ -167,10 +201,10 @@
     <!-- Startup Overlay -->
     <div class="startup-overlay" id="startupOverlay">
         <div class="startup-message">
-            This is a portfolio of Timur Abdrakhimov.<br>
-            To proceed please press START button.
+            <span data-i18n="startup.message1">This is a portfolio of Timur Abdrakhimov.</span><br>
+            <span data-i18n="startup.message2">To proceed please press START button.</span>
         </div>
-        <button class="start-button-windows" id="startButton">START</button>
+        <button class="start-button-windows" id="startButton" data-i18n="startup.startBtn">START</button>
     </div>
 
     <!-- Snow Effect Container -->
@@ -182,6 +216,10 @@
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light navbar-95 ">
+        <div class="language-selector">
+            <button class="lang-btn active" id="langEN" data-lang="en">EN</button>
+            <button class="lang-btn" id="langRU" data-lang="ru">RU</button>
+        </div>
         <a class="navbar-brand" href="#">
             <img src="assets/icons/computer-3.png"> Timur Abdrakhimov</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -190,16 +228,16 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#about">About <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#about" data-i18n="nav.about">About <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#projects">Projects</a>
+                    <a class="nav-link" href="#projects" data-i18n="nav.projects">Projects</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#skills">Skills</a>
+                    <a class="nav-link" href="#skills" data-i18n="nav.skills">Skills</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#about">Contact</a>
+                    <a class="nav-link" href="#about" data-i18n="nav.contact">Contact</a>
                 </li>
             </ul>
         </div>
@@ -209,7 +247,7 @@
 
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4">Timur Abdrakhimov</h1>
-        <p class="lead">Building digital worlds, apps, and games</p>
+        <p class="lead" data-i18n="header.tagline">Building digital worlds, apps, and games</p>
         <hr style="border: 1px solid #000; width: 200px; margin: 30px auto;">
     </div>
 
@@ -217,7 +255,7 @@
     <div class="container" id="about">
         <div class="card mb-4">
             <div class="card-header">
-                <h4 class="my-0 font-weight-normal"><img src="assets/icons/users-1.png" class="icon-16"> About Me</h4>
+                <h4 class="my-0 font-weight-normal"><img src="assets/icons/users-1.png" class="icon-16"> <span data-i18n="about.title">About Me</span></h4>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -225,18 +263,18 @@
                         <img src="assets/ava.png" alt="Timur Abdrakhimov" class="img-fluid" style="border: 2px solid #000; max-width: 100%;">
                     </div>
                     <div class="col-md-8">
-                        <p>I create interactive experiences where code, design, and world-building come together.</p>
-                        <p>Over the past years, I've released apps and games built with Unity, SwiftUI, RealityKit, and MAUI, shipped products to the App Store, showed projects at Tokyo Game Show, and worked across AR/VR with companies in the US, Europe, and Japan.</p>
-                        <p><strong>I'm a developer, product thinker, and creator of digital worlds.</strong></p>
-                        <p>I love making things people can explore, touch, and experience.</p>
+                        <p data-i18n="about.p1">I create interactive experiences where code, design, and world-building come together.</p>
+                        <p data-i18n="about.p2">Over the past years, I've released apps and games built with Unity, SwiftUI, RealityKit, and MAUI, shipped products to the App Store, showed projects at Tokyo Game Show, and worked across AR/VR with companies in the US, Europe, and Japan.</p>
+                        <p><strong data-i18n="about.p3">I'm a developer, product thinker, and creator of digital worlds.</strong></p>
+                        <p data-i18n="about.p4">I love making things people can explore, touch, and experience.</p>
                         <hr style="border: 1px solid #000; margin: 20px 0;">
-                        <p><strong>For collaborations, consulting, or hiring:</strong></p>
+                        <p><strong data-i18n="about.contactTitle">For collaborations, consulting, or hiring:</strong></p>
                         <div style="margin: 15px 0;">
-                            <a href="mailto:timskap@gmail.com" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/envelope_closed-1.png" class="icon-16"> Email</a>
-                            <a href="https://t.me/Komalov" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/users-1.png" class="icon-16"> Telegram</a>
-                            <a href="https://www.linkedin.com/in/timur-abdrakhimov-85376bbb/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/internet_connection_wiz-5.png" class="icon-16"> LinkedIn</a>
+                            <a href="mailto:timskap@gmail.com" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/envelope_closed-1.png" class="icon-16"> <span data-i18n="about.email">Email</span></a>
+                            <a href="https://t.me/Komalov" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/users-1.png" class="icon-16"> <span data-i18n="about.telegram">Telegram</span></a>
+                            <a href="https://www.linkedin.com/in/timur-abdrakhimov-85376bbb/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/internet_connection_wiz-5.png" class="icon-16"> <span data-i18n="about.linkedin">LinkedIn</span></a>
                         </div>
-                        <p style="font-size: 0.9em; color: #666;">Portfolio & social links available upon request.</p>
+                        <p style="font-size: 0.9em; color: #666;" data-i18n="about.footer">Portfolio & social links available upon request.</p>
                     </div>
                 </div>
             </div>
@@ -247,7 +285,7 @@
     <div class="container" id="projects">
         <div class="card mb-4">
             <div class="card-header">
-                <h4 class="my-0 font-weight-normal"><img src="assets/icons/directory_folder_options-5.png" class="icon-16"> Projects</h4>
+                <h4 class="my-0 font-weight-normal"><img src="assets/icons/directory_folder_options-5.png" class="icon-16"> <span data-i18n="projects.title">Projects</span></h4>
             </div>
             <div class="card-body">
                 <div class="row mb-3">
@@ -265,9 +303,9 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <p>Click the button below to browse my projects:</p>
+                    <p data-i18n="projects.browseText">Click the button below to browse my projects:</p>
                     <button id="openInstallerBtn" class="btn btn-primary" style="margin: 20px 0;">
-                        <img src="assets/icons/directory_folder_options-5.png" class="icon-16"> Browse Projects
+                        <img src="assets/icons/directory_folder_options-5.png" class="icon-16"> <span data-i18n="projects.browseBtn">Browse Projects</span>
                     </button>
                 </div>
             </div>
@@ -280,7 +318,7 @@
             <div class="installer-header">
                 <div class="installer-title">
                     <img src="assets/icons/directory_folder_options-5.png" class="icon-16">
-                    <span>Projects Installation Wizard</span>
+                    <span data-i18n="installer.title">Projects Installation Wizard</span>
                 </div>
                 <button class="btn close-btn" id="installerCloseBtn">×</button>
             </div>
@@ -291,29 +329,29 @@
                 <div class="installer-content-area">
                     <!-- Step 1: Sobakistan -->
                     <div class="installer-step active" data-step="0">
-                        <div class="installer-step-title">Sobakistan: The Land of Dogs</div>
-                        <div class="installer-step-description">
+                        <div class="installer-step-title" data-i18n="installer.sobakistan.title">Sobakistan: The Land of Dogs</div>
+                        <div class="installer-step-description" data-i18n="installer.sobakistan.description">
                           Dark satirical narrative adventure about a closed dog-state. Unity, PC, Narrative Adventure.
                       </div>
                         <div style="margin: 20px 0;">
-                            <a href="https://sobakistan.com/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/internet_connection_wiz-5.png" class="icon-16"> Website</a>
-                            <a href="https://store.steampowered.com/app/3742720/Sobakistan_The_Land_of_Dogs/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/directory_folder_options-5.png" class="icon-16"> Steam</a>
-                            <a href="https://steamcommunity.com/app/3742720" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/users-1.png" class="icon-16"> Community</a>
-                            <a href="https://globalcomix.com/c/sobakistan" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/help_book_cool-1.png" class="icon-16"> Comic</a>
-                            <a href="https://adventuregamehotspot.com/game/1690/sobakistan-the-land-of-dogs" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/msie1-4.png" class="icon-16"> Feature</a>
-                            <a href="https://www.chalgyr.com/2025/09/news-sobakistan-playtestrelease.html" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/msie1-4.png" class="icon-16"> TGS Press</a>
+                            <a href="https://sobakistan.com/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/internet_connection_wiz-5.png" class="icon-16"> <span data-i18n="installer.website">Website</span></a>
+                            <a href="https://store.steampowered.com/app/3742720/Sobakistan_The_Land_of_Dogs/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/directory_folder_options-5.png" class="icon-16"> <span data-i18n="installer.steam">Steam</span></a>
+                            <a href="https://steamcommunity.com/app/3742720" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/users-1.png" class="icon-16"> <span data-i18n="installer.community">Community</span></a>
+                            <a href="https://globalcomix.com/c/sobakistan" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/help_book_cool-1.png" class="icon-16"> <span data-i18n="installer.comic">Comic</span></a>
+                            <a href="https://adventuregamehotspot.com/game/1690/sobakistan-the-land-of-dogs" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/msie1-4.png" class="icon-16"> <span data-i18n="installer.feature">Feature</span></a>
+                            <a href="https://www.chalgyr.com/2025/09/news-sobakistan-playtestrelease.html" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/msie1-4.png" class="icon-16"> <span data-i18n="installer.tgsPress">TGS Press</span></a>
                         </div>
                        
-                        <p>A dark, satirical world created together with comic artist Vitalii Terletskii. Presented at Tokyo Game Show and supported by hundreds of players worldwide.</p>
-                        <p><strong>Highlights:</strong></p>
+                        <p data-i18n="installer.sobakistan.p1">A dark, satirical world created together with comic artist Vitalii Terletskii. Presented at Tokyo Game Show and supported by hundreds of players worldwide.</p>
+                        <p><strong data-i18n="installer.sobakistan.highlightsTitle">Highlights:</strong></p>
                         <ul>
-                            <li>Deep branching narrative with multiple endings</li>
-                            <li>Character-driven storytelling (Yagodovich, Sirius, Gamma, Buddy…)</li>
-                            <li>Fully custom lore, atmosphere, and grim humor</li>
-                            <li>Mini-games, choices, and consequence-driven scenarios</li>
-                            <li>Complete dialogue and event system with audio</li>
+                            <li data-i18n="installer.sobakistan.h1">Deep branching narrative with multiple endings</li>
+                            <li data-i18n="installer.sobakistan.h2">Character-driven storytelling (Yagodovich, Sirius, Gamma, Buddy…)</li>
+                            <li data-i18n="installer.sobakistan.h3">Fully custom lore, atmosphere, and grim humor</li>
+                            <li data-i18n="installer.sobakistan.h4">Mini-games, choices, and consequence-driven scenarios</li>
+                            <li data-i18n="installer.sobakistan.h5">Complete dialogue and event system with audio</li>
                         </ul>
-                        <p>I'm responsible for gameplay systems, UI/UX, architecture, save/load logic, dialogue tech, performance, and content integration.</p>
+                        <p data-i18n="installer.sobakistan.p2">I'm responsible for gameplay systems, UI/UX, architecture, save/load logic, dialogue tech, performance, and content integration.</p>
                         <div style="margin: 20px 0;">
                             <img src="assets/Sobarkistan Screen 1.png" alt="Sobakistan Game Screenshot" class="img-fluid" style="border: 2px solid #000; max-width: 100%; margin-bottom: 15px;">
                         </div>
@@ -321,22 +359,22 @@
 
                     <!-- Step 2: Gnomes & Knights -->
                     <div class="installer-step" data-step="1">
-                        <div class="installer-step-title">Gnomes And Knights</div>
-                        <div class="installer-step-description">
+                        <div class="installer-step-title" data-i18n="installer.gnomes.title">Gnomes And Knights</div>
+                        <div class="installer-step-description" data-i18n="installer.gnomes.description">
                           Gloomy low-poly dark fantasy about a knight hunting gnomes. Unity, iOS/Android.
                       </div>
                         <div style="margin: 20px 0;">
-                            <a href="https://apps.apple.com/tr/app/gnomes-and-knights/id6686394641" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/directory_folder_options-5.png" class="icon-16"> App Store</a>
-                            <a href="https://terletski.ru/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/internet_connection_wiz-5.png" class="icon-16"> Developer Site</a>
+                            <a href="https://apps.apple.com/tr/app/gnomes-and-knights/id6686394641" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/directory_folder_options-5.png" class="icon-16"> <span data-i18n="installer.appStore">App Store</span></a>
+                            <a href="https://terletski.ru/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/internet_connection_wiz-5.png" class="icon-16"> <span data-i18n="installer.developerSite">Developer Site</span></a>
                         </div>
                        
-                        <p>A collaboration with Vitalii Terletskii and Artem Bizyaev. A fantasy world where players follow one of three story arcs — Greed, Noble, or Revenge.</p>
-                        <p><strong>Features:</strong></p>
+                        <p data-i18n="installer.gnomes.p1">A collaboration with Vitalii Terletskii and Artem Bizyaev. A fantasy world where players follow one of three story arcs — Greed, Noble, or Revenge.</p>
+                        <p><strong data-i18n="installer.gnomes.featuresTitle">Features:</strong></p>
                         <ul>
-                            <li>Procedurally generated worlds and biomes</li>
-                            <li>Special tiles and unique required objects per level</li>
-                            <li>In-depth dialogue system and Steam achievements</li>
-                            <li>Player progress, save files, and seamless game continuation</li>
+                            <li data-i18n="installer.gnomes.f1">Procedurally generated worlds and biomes</li>
+                            <li data-i18n="installer.gnomes.f2">Special tiles and unique required objects per level</li>
+                            <li data-i18n="installer.gnomes.f3">In-depth dialogue system and Steam achievements</li>
+                            <li data-i18n="installer.gnomes.f4">Player progress, save files, and seamless game continuation</li>
                         </ul>
                         <div style="margin: 20px 0;">
                             <img src="assets/gnomesAndKnights.avif" alt="Gnomes And Knights Screenshot" class="img-fluid" style="border: 2px solid #000; max-width: 100%; margin-bottom: 15px;">
@@ -345,28 +383,28 @@
 
                     <!-- Step 3: Mini-Map Radar -->
                     <div class="installer-step" data-step="2">
-                        <div class="installer-step-title">Mini-Map Radar</div>
-                        <div class="installer-step-description">
+                        <div class="installer-step-title" data-i18n="installer.minimap.title">Mini-Map Radar</div>
+                        <div class="installer-step-description" data-i18n="installer.minimap.description">
                           Apple Watch game-styled minimap inspired by GTA / Fallout. SwiftUI, watchOS, MapKit.
                       </div>
                         <div style="margin: 20px 0;">
-                            <a href="https://mini-map.app/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/internet_connection_wiz-5.png" class="icon-16"> Website</a>
-                            <a href="https://apps.apple.com/tr/app/minimap-radar/id6467383947" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/directory_folder_options-5.png" class="icon-16"> App Store</a>
-                            <a href="https://www.producthunt.com/products/minimap-radar" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/msie1-4.png" class="icon-16"> Product Hunt</a>
-                            <a href="https://80.lv/articles/get-gta-vice-city-mini-map-on-your-apple-watch" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/help_book_cool-1.png" class="icon-16"> Article</a>
-                            <a href="https://t.me/s/radar_app?before=23" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/users-1.png" class="icon-16"> Telegram</a>
-                            <a href="https://x.com/minimap_app" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/msie1-4.png" class="icon-16"> Twitter</a>
+                            <a href="https://mini-map.app/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/internet_connection_wiz-5.png" class="icon-16"> <span data-i18n="installer.website">Website</span></a>
+                            <a href="https://apps.apple.com/tr/app/minimap-radar/id6467383947" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/directory_folder_options-5.png" class="icon-16"> <span data-i18n="installer.appStore">App Store</span></a>
+                            <a href="https://www.producthunt.com/products/minimap-radar" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/msie1-4.png" class="icon-16"> <span data-i18n="installer.productHunt">Product Hunt</span></a>
+                            <a href="https://80.lv/articles/get-gta-vice-city-mini-map-on-your-apple-watch" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/help_book_cool-1.png" class="icon-16"> <span data-i18n="installer.article">Article</span></a>
+                            <a href="https://t.me/s/radar_app?before=23" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/users-1.png" class="icon-16"> <span data-i18n="installer.telegram">Telegram</span></a>
+                            <a href="https://x.com/minimap_app" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/msie1-4.png" class="icon-16"> <span data-i18n="installer.twitter">Twitter</span></a>
                         </div>
                       
-                        <p>A fan-favorite Apple Watch app that transforms your real surroundings into a stylish mini-map inspired by classic games.</p>
-                        <p><strong>Includes:</strong></p>
+                        <p data-i18n="installer.minimap.p1">A fan-favorite Apple Watch app that transforms your real surroundings into a stylish mini-map inspired by classic games.</p>
+                        <p><strong data-i18n="installer.minimap.includesTitle">Includes:</strong></p>
                         <ul>
-                            <li>Rotating radar-style map synced with player orientation</li>
-                            <li>Location markers, navigation, and custom skins</li>
-                            <li>AR overlays and enhanced visual effects</li>
-                            <li>Viral content on TikTok and Reels, strong community interest</li>
+                            <li data-i18n="installer.minimap.i1">Rotating radar-style map synced with player orientation</li>
+                            <li data-i18n="installer.minimap.i2">Location markers, navigation, and custom skins</li>
+                            <li data-i18n="installer.minimap.i3">AR overlays and enhanced visual effects</li>
+                            <li data-i18n="installer.minimap.i4">Viral content on TikTok and Reels, strong community interest</li>
                         </ul>
-                        <p>One of my most recognizable projects.</p>
+                        <p data-i18n="installer.minimap.p2">One of my most recognizable projects.</p>
                         <div style="margin: 20px 0;">
                             <img src="assets/minimap.png" alt="Mini-Map Radar Screenshot" class="img-fluid" style="border: 2px solid #000; max-width: 100%; margin-bottom: 15px;">
                         </div>
@@ -374,22 +412,22 @@
 
                     <!-- Step 4: 2GIS Immersive -->
                     <div class="installer-step" data-step="3">
-                        <div class="installer-step-title">2GIS Immersive</div>
-                        <div class="installer-step-description">
+                        <div class="installer-step-title" data-i18n="installer.gis.title">2GIS Immersive</div>
+                        <div class="installer-step-description" data-i18n="installer.gis.description">
                           3D encyclopedia of landmarks for Apple Vision Pro. SwiftUI, RealityKit, Reality Composer Pro, VisionOS.
                       </div>
                         <div style="margin: 20px 0;">
-                            <a href="https://habr.com/ru/companies/2gis/articles/794777/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/help_book_cool-1.png" class="icon-16"> Case Study (Habr)</a>
+                            <a href="https://habr.com/ru/companies/2gis/articles/794777/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/help_book_cool-1.png" class="icon-16"> <span data-i18n="installer.caseStudy">Case Study (Habr)</span></a>
                         </div>
                     
-                        <p>Created in just 8 days, this immersive app showcases 3D models of landmarks and destinations in spatial computing. Built for 2ГИС (2GIS), one of Russia's leading mapping and navigation companies.</p>
-                        <p><strong>Highlights:</strong></p>
+                        <p data-i18n="installer.gis.p1">Created in just 8 days, this immersive app showcases 3D models of landmarks and destinations in spatial computing. Built for 2ГИС (2GIS), one of Russia's leading mapping and navigation companies.</p>
+                        <p><strong data-i18n="installer.gis.highlightsTitle">Highlights:</strong></p>
                         <ul>
-                            <li>One of the first VisionOS apps worldwide (top 600) and the first VisionOS app from Russia</li>
-                            <li>Built with SwiftUI and RealityKit for spatial 3D experiences</li>
-                            <li>3D models viewable in AR with detailed information panels</li>
-                            <li>Featured by Apple for early Vision Pro support</li>
-                            <li>Developed using VisionOS simulator before device launch</li>
+                            <li data-i18n="installer.gis.h1">One of the first VisionOS apps worldwide (top 600) and the first VisionOS app from Russia</li>
+                            <li data-i18n="installer.gis.h2">Built with SwiftUI and RealityKit for spatial 3D experiences</li>
+                            <li data-i18n="installer.gis.h3">3D models viewable in AR with detailed information panels</li>
+                            <li data-i18n="installer.gis.h4">Featured by Apple for early Vision Pro support</li>
+                            <li data-i18n="installer.gis.h5">Developed using VisionOS simulator before device launch</li>
                         </ul>
                         <div style="margin: 20px 0;">
                             <img src="assets/kreml-2gis.jpg" alt="2GIS Immersive - Moscow Kremlin in AR" class="img-fluid" style="border: 2px solid #000; max-width: 100%; margin-bottom: 15px;">
@@ -398,30 +436,30 @@
 
                     <!-- Step 5: AR & VR Projects -->
                     <div class="installer-step" data-step="4">
-                        <div class="installer-step-title">AR & VR Projects</div>
-                        <div class="installer-step-description">
+                        <div class="installer-step-title" data-i18n="installer.vr.title">AR & VR Projects</div>
+                        <div class="installer-step-description" data-i18n="installer.vr.description">
                             Interactive VR/AR experiences and tools. Unity, RealityKit, Meta Quest, Vision Pro.
                         </div>
-                        <p>I've built interactive VR/AR experiences and tools for:</p>
+                        <p data-i18n="installer.vr.p1">I've built interactive VR/AR experiences and tools for:</p>
                         <ul>
-                            <li>US universities</li>
-                            <li>Verizon</li>
-                            <li>corporate clients</li>
-                            <li>exhibitions and showcases</li>
+                            <li data-i18n="installer.vr.l1">US universities</li>
+                            <li data-i18n="installer.vr.l2">Verizon</li>
+                            <li data-i18n="installer.vr.l3">corporate clients</li>
+                            <li data-i18n="installer.vr.l4">exhibitions and showcases</li>
                         </ul>
-                        <p><strong>Skills used:</strong></p>
+                        <p><strong data-i18n="installer.vr.skillsTitle">Skills used:</strong></p>
                         <ul>
-                            <li>Meta Quest / Vision Pro optimization</li>
-                            <li>Custom shaders (URP, Metal)</li>
-                            <li>Spatial interactions, locomotion systems</li>
-                            <li>VR launchers, content browsers, and simulators</li>
+                            <li data-i18n="installer.vr.s1">Meta Quest / Vision Pro optimization</li>
+                            <li data-i18n="installer.vr.s2">Custom shaders (URP, Metal)</li>
+                            <li data-i18n="installer.vr.s3">Spatial interactions, locomotion systems</li>
+                            <li data-i18n="installer.vr.s4">VR launchers, content browsers, and simulators</li>
                         </ul>
                     </div>
 
                     <!-- Step 6: Installation Progress -->
                     <div class="installer-step" data-step="5">
-                        <div class="installer-step-title">Installing Projects</div>
-                        <div class="installer-step-description">
+                        <div class="installer-step-title" data-i18n="installer.installing.title">Installing Projects</div>
+                        <div class="installer-step-description" data-i18n="installer.installing.description">
                             Please wait while projects are being installed...
                         </div>
                         <div id="installationProgress" style="margin-top: 30px;">
@@ -434,19 +472,19 @@
                     <!-- Step 7: Installation Complete -->
                     <div class="installer-step" data-step="6">
                         <div id="installationComplete" style="margin-top: 20px; text-align: center;">
-                            <h5 style="color: #08216b; font-weight: bold;">Project Installation Complete</h5>
-                            <p>All of Timur Abdrakhimov’s projects have been successfully Viewed.</p>
-                            <p style="margin-top: 10px;">
+                            <h5 style="color: #08216b; font-weight: bold;" data-i18n="installer.complete.title">Project Installation Complete</h5>
+                            <p data-i18n="installer.complete.p1">All of Timur Abdrakhimov's projects have been successfully Viewed.</p>
+                            <p style="margin-top: 10px;" data-i18n="installer.complete.p2">
                                 The following worlds are now available:
                             </p>
                             <ul style="display: inline-block; text-align: left; margin-top: 5px;">
-                                <li><strong>Sobakistan</strong> – dark satirical dog-state adventure</li>
-                                <li><strong>Gnomes & Knights</strong> – gloomy low-poly dark fantasy</li>
-                                <li><strong>Mini-Map Radar</strong> – game-styled Apple Watch minimap</li>
-                                <li><strong>2GIS Immersive & AR/VR</strong> – spatial experiences in Vision Pro & VR</li>
+                                <li><strong data-i18n="installer.complete.l1">Sobakistan</strong> – <span data-i18n="installer.complete.l1desc">dark satirical dog-state adventure</span></li>
+                                <li><strong data-i18n="installer.complete.l2">Gnomes & Knights</strong> – <span data-i18n="installer.complete.l2desc">gloomy low-poly dark fantasy</span></li>
+                                <li><strong data-i18n="installer.complete.l3">Mini-Map Radar</strong> – <span data-i18n="installer.complete.l3desc">game-styled Apple Watch minimap</span></li>
+                                <li><strong data-i18n="installer.complete.l4">2GIS Immersive & AR/VR</strong> – <span data-i18n="installer.complete.l4desc">spatial experiences in Vision Pro & VR</span></li>
                             </ul>
                         
-                            <p style="margin-top: 10px; font-weight: bold;">
+                            <p style="margin-top: 10px; font-weight: bold;" data-i18n="installer.complete.p3">
                                 Click <em>Finish</em> to close the Projects Installation Wizard.
                             </p>
                         </div>
@@ -456,12 +494,12 @@
             
             <div class="installer-footer">
               
-                <div class="installer-progress" id="installerProgress">Step 1 of 5</div>
+                <div class="installer-progress" id="installerProgress" data-i18n="installer.step">Step 1 of 7</div>
                 <div class="installer-nav-buttons">
-                    <button class="btn btn-primary installer-btn" id="installerBackBtn" disabled>< Back</button>
-                    <button class="btn btn-primary installer-btn" id="installerNextBtn">Next ></button>
-                    <button class="btn btn-primary installer-btn" id="installerCancelBtn">Cancel</button>
-                    <button class="btn btn-primary installer-btn" id="installerReinstallBtn" style="display: none;">Reinstall</button>
+                    <button class="btn btn-primary installer-btn" id="installerBackBtn" disabled data-i18n="installer.back">< Back</button>
+                    <button class="btn btn-primary installer-btn" id="installerNextBtn" data-i18n="installer.next">Next ></button>
+                    <button class="btn btn-primary installer-btn" id="installerCancelBtn" data-i18n="installer.cancel">Cancel</button>
+                    <button class="btn btn-primary installer-btn" id="installerReinstallBtn" style="display: none;" data-i18n="installer.reinstall">Reinstall</button>
                 </div>
             </div>
         </div>
@@ -471,22 +509,22 @@
     <div class="container" id="skills">
         <div class="card mb-4">
             <div class="card-header">
-                <h4 class="my-0 font-weight-normal"><img src="assets/icons/help_book_cool-1.png" class="icon-16"> Technical Skills</h4>
+                <h4 class="my-0 font-weight-normal"><img src="assets/icons/help_book_cool-1.png" class="icon-16"> <span data-i18n="skills.title">Technical Skills</span></h4>
             </div>
             <div class="card-body">
                 <hr style="border: 1px solid #000; margin: 20px 0;">
                 
-                <h5><strong>Unity 3D</strong></h5>
-                <p>VR/AR development, mobile games, PC builds, navigation, dialogue systems, performance optimization, editor tools, procedural generation.</p>
+                <h5><strong data-i18n="skills.unity.title">Unity 3D</strong></h5>
+                <p data-i18n="skills.unity.desc">VR/AR development, mobile games, PC builds, navigation, dialogue systems, performance optimization, editor tools, procedural generation.</p>
                 
-                <h5><strong>Swift / SwiftUI / RealityKit</strong></h5>
-                <p>watchOS/iOS apps, Vision Pro interactions, MapKit navigation, AR entities, smooth UI/UX animations.</p>
+                <h5><strong data-i18n="skills.swift.title">Swift / SwiftUI / RealityKit</strong></h5>
+                <p data-i18n="skills.swift.desc">watchOS/iOS apps, Vision Pro interactions, MapKit navigation, AR entities, smooth UI/UX animations.</p>
                 
-                <h5><strong>C#, Java, .NET</strong></h5>
-                <p>Gameplay architecture, asynchronous programming, MAUI cross-platform apps.</p>
+                <h5><strong data-i18n="skills.csharp.title">C#, Java, .NET</strong></h5>
+                <p data-i18n="skills.csharp.desc">Gameplay architecture, asynchronous programming, MAUI cross-platform apps.</p>
                 
-                <h5><strong>Design & Product Thinking</strong></h5>
-                <p>User flow design, feature planning, rapid prototyping, analytics, and delivering polished experiences.</p>
+                <h5><strong data-i18n="skills.design.title">Design & Product Thinking</strong></h5>
+                <p data-i18n="skills.design.desc">User flow design, feature planning, rapid prototyping, analytics, and delivering polished experiences.</p>
             </div>
         </div>
     </div>
@@ -498,14 +536,14 @@
             <div class="col-md-6 mb-4">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h4 class="my-0 font-weight-normal"><img src="assets/icons/msie1-4.png" class="icon-16"> Highlights</h4>
+                        <h4 class="my-0 font-weight-normal"><img src="assets/icons/msie1-4.png" class="icon-16"> <span data-i18n="highlights.title">Highlights</span></h4>
                     </div>
                     <div class="card-body">
                         <ul>
-                            <li>Tokyo Game Show (TGS) — Sobakistan showcase</li>
-                            <li>Guest lectures and workshops at tech universities</li>
-                            <li>Public playtests and demo showcases</li>
-                            <li>Popular content around Mini-Map Radar across social platforms</li>
+                            <li data-i18n="highlights.h1">Tokyo Game Show (TGS) — Sobakistan showcase</li>
+                            <li data-i18n="highlights.h2">Guest lectures and workshops at tech universities</li>
+                            <li data-i18n="highlights.h3">Public playtests and demo showcases</li>
+                            <li data-i18n="highlights.h4">Popular content around Mini-Map Radar across social platforms</li>
                         </ul>
                     </div>
                 </div>
@@ -515,15 +553,15 @@
             <div class="col-md-6 mb-4">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h4 class="my-0 font-weight-normal"><img src="assets/icons/laptop_small-0.png" class="icon-16"> How I Work</h4>
+                        <h4 class="my-0 font-weight-normal"><img src="assets/icons/laptop_small-0.png" class="icon-16"> <span data-i18n="work.title">How I Work</span></h4>
                     </div>
                     <div class="card-body">
                         <ul>
-                            <li><strong>Product-first:</strong> understand user value and purpose</li>
-                            <li><strong>Engineering-driven:</strong> clean architecture and stable builds</li>
-                            <li><strong>Creative:</strong> focus on mood, style, atmosphere, and world cohesion</li>
-                            <li><strong>Fast iterations:</strong> constant testing, polishing, improving</li>
-                            <li><strong>Systematic:</strong> roadmaps, UX details, content pipelines</li>
+                            <li><strong data-i18n="work.w1title">Product-first:</strong> <span data-i18n="work.w1desc">understand user value and purpose</span></li>
+                            <li><strong data-i18n="work.w2title">Engineering-driven:</strong> <span data-i18n="work.w2desc">clean architecture and stable builds</span></li>
+                            <li><strong data-i18n="work.w3title">Creative:</strong> <span data-i18n="work.w3desc">focus on mood, style, atmosphere, and world cohesion</span></li>
+                            <li><strong data-i18n="work.w4title">Fast iterations:</strong> <span data-i18n="work.w4desc">constant testing, polishing, improving</span></li>
+                            <li><strong data-i18n="work.w5title">Systematic:</strong> <span data-i18n="work.w5desc">roadmaps, UX details, content pipelines</span></li>
                         </ul>
                     </div>
                 </div>
@@ -535,9 +573,9 @@
     <footer class="taskbar">
         <div class="row" style="margin-right: 0px;">
             <div class="col-8">
-                <a href="#about" class="btn start-button"><img src="assets/icons/users-1.png" class="icon-16">About</a>
-                <a href="#projects" class="btn start-button"><img src="assets/icons/directory_folder_options-5.png" class="icon-16">Projects</a>
-                <a href="#about" class="btn start-button"><img src="assets/icons/envelope_closed-1.png" class="icon-16">Contact</a>
+                <a href="#about" class="btn start-button"><img src="assets/icons/users-1.png" class="icon-16"><span data-i18n="nav.about">About</span></a>
+                <a href="#projects" class="btn start-button"><img src="assets/icons/directory_folder_options-5.png" class="icon-16"><span data-i18n="nav.projects">Projects</span></a>
+                <a href="#about" class="btn start-button"><img src="assets/icons/envelope_closed-1.png" class="icon-16"><span data-i18n="nav.contact">Contact</span></a>
             </div>
             <div class="col-4 time">Timur Abdrakhimov <span id="currentTime"></span></div>
         </div>
@@ -550,6 +588,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="assets/snow.js"></script>
     <script src="assets/garlands.js"></script>
+    <script src="assets/i18n.js"></script>
     <script src="assets/installer.js"></script>
     <script>
         // Startup screen with START button
