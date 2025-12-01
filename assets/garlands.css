@@ -1,0 +1,112 @@
+.garlands-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 500;
+    overflow: hidden;
+}
+
+.garlands-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+.garland {
+    position: absolute;
+    pointer-events: none;
+}
+
+.garland-light {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 0;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    border: 1px solid #000;
+    box-shadow: 0 0 2px currentColor;
+    transition: opacity 0.3s ease;
+}
+
+.garland-light.on {
+    opacity: 1;
+    box-shadow: 
+        0 0 4px currentColor,
+        0 0 8px currentColor,
+        0 0 12px currentColor;
+    animation: glow-pulse 1.5s ease-in-out infinite;
+}
+
+.garland-light.off {
+    opacity: 0.3;
+}
+
+@keyframes glow-pulse {
+    0%, 100% {
+        opacity: 1;
+        box-shadow: 
+            0 0 4px currentColor,
+            0 0 8px currentColor,
+            0 0 12px currentColor;
+    }
+    50% {
+        opacity: 0.6;
+        box-shadow: 
+            0 0 2px currentColor,
+            0 0 4px currentColor,
+            0 0 6px currentColor;
+    }
+}
+
+/* Цвета лампочек */
+.garland-light.color-red {
+    background-color: #ff0000;
+    color: #ff0000;
+}
+
+.garland-light.color-green {
+    background-color: #00ff00;
+    color: #00ff00;
+}
+
+.garland-light.color-blue {
+    background-color: #0000ff;
+    color: #0000ff;
+}
+
+.garland-light.color-yellow {
+    background-color: #ffff00;
+    color: #ffff00;
+}
+
+.garland-light.color-cyan {
+    background-color: #00ffff;
+    color: #00ffff;
+}
+
+.garland-light.color-magenta {
+    background-color: #ff00ff;
+    color: #ff00ff;
+}
+
+.garland-light.color-orange {
+    background-color: #ff8800;
+    color: #ff8800;
+}
+
+.garland-light.color-white {
+    background-color: #ffffff;
+    color: #ffffff;
+}
+

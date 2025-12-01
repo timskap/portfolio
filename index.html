@@ -14,11 +14,27 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="assets/win95.css">
-
+    <link rel="stylesheet" type="text/css" href="assets/snow.css">
+    <link rel="stylesheet" type="text/css" href="assets/garlands.css">
+    
+    <style>
+        body {
+            background-image: url('assets/images.jpeg');
+            background-repeat: repeat;
+            background-attachment: fixed;
+        }
+    </style>
 
 </head>
 
 <body class="windows-scrollbar">
+
+    <!-- Snow Effect Container -->
+    <div class="snow-container" id="snowContainer"></div>
+    <div class="snow-accumulation" id="snowAccumulation"></div>
+    
+    <!-- Garlands Container -->
+    <div class="garlands-container" id="garlandsContainer"></div>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light navbar-95 ">
@@ -308,6 +324,9 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="assets/snow.js"></script>
+    <script src="assets/garlands.js"></script>
+    <script src="assets/midi-player.js"></script>
 </body>
 
 </html>
