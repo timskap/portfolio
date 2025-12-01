@@ -12,6 +12,8 @@
     <link rel="shortcut icon" href="assets/icons/computer-3.png" type="image/png">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    <link href="https://fonts.cdnfonts.com/css/w95fa" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="assets/win95.css">
     <link rel="stylesheet" type="text/css" href="assets/snow.css">
@@ -23,6 +25,14 @@
             background-image: url('assets/images.jpeg');
             background-repeat: repeat;
             background-attachment: fixed;
+            padding-top: 60px; /* Отступ для фиксированного navbar */
+            padding-bottom: 50px; /* Отступ для фиксированного footer */
+        }
+        
+        /* Custom cursor after START is pressed */
+        body.custom-cursor,
+        body.custom-cursor * {
+            cursor: url('assets/Sparkle Purple .cur'), auto !important;
         }
         
         .project-preview-img {
@@ -32,11 +42,136 @@
             border: 2px solid #000;
             cursor: pointer;
         }
+        
+        /* Фиксированный navbar */
+        .navbar-95 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+        
+        /* Фиксированный footer */
+        .taskbar {
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            width: 100%;
+            margin: 0 !important;
+        }
+        
+        /* Windows 95 style time display */
+        #currentTime {
+            font-family: 'W95FA', 'MS Sans Serif', 'MS UI Gothic', sans-serif;
+            font-size: 12px;
+            color: #000;
+            /* background: #808080 100%; */
+            border: 1px inset #c0c0c0;
+            padding: 2px 6px;
+            margin-left: 8px;
+            display: inline-block;
+            box-shadow: 
+                inset 1px 1px 0px #000,
+                inset -1px -1px 0px #fff;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Startup overlay */
+        .startup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            z-index: 10000;
+            opacity: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        /* Startup text message */
+        .startup-message {
+            font-family: 'W95FA', 'MS Sans Serif', 'MS UI Gothic', sans-serif;
+            font-size: 18px;
+            color: #c0c0c0;
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+        
+        .startup-overlay.fade-out {
+            animation: fadeOut 3s ease-out forwards;
+        }
+        
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+        
+        /* Windows 95 style START button */
+        .start-button-windows {
+            font-family: 'W95FA', 'MS Sans Serif', 'MS UI Gothic', sans-serif;
+            font-size: 16px;
+            font-weight: normal;
+            color: #000;
+            background: linear-gradient(to bottom, #c0c0c0 0%, #808080 100%);
+            border: 4px outset #c0c0c0;
+            padding: 8px 20px;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 
+                inset -2px -2px 0px #000,
+                inset 2px 2px 0px #fff;
+            transition: all 0.1s;
+            user-select: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .start-button-windows:hover {
+            background: linear-gradient(to bottom, #d4d0c8 0%, #c0c0c0 100%);
+        }
+        
+        .start-button-windows:active {
+            border: 4px inset #c0c0c0;
+            box-shadow: 
+                inset 2px 2px 0px #000,
+                inset -2px -2px 0px #fff;
+            transform: translate(2px, 2px);
+        }
+        
+        .start-button-windows.hidden {
+            display: none;
+        }
     </style>
 
 </head>
 
 <body class="windows-scrollbar">
+
+    <!-- Startup Overlay -->
+    <div class="startup-overlay" id="startupOverlay">
+        <div class="startup-message">
+            This is a portfolio of Timur Abdrakhimov.<br>
+            To proceed please press START button.
+        </div>
+        <button class="start-button-windows" id="startButton">START</button>
+    </div>
 
     <!-- Snow Effect Container -->
     <div class="snow-container" id="snowContainer"></div>
@@ -64,7 +199,7 @@
                     <a class="nav-link" href="#skills">Skills</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#contact">Contact</a>
+                    <a class="nav-link" href="#about">Contact</a>
                 </li>
             </ul>
         </div>
@@ -73,7 +208,7 @@
     <!-- Header -->
 
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4">TIMUR ABDRAKHIMOV</h1>
+        <h1 class="display-4">Timur Abdrakhimov</h1>
         <p class="lead">Building digital worlds, apps, and games</p>
         <hr style="border: 1px solid #000; width: 200px; margin: 30px auto;">
     </div>
@@ -87,16 +222,23 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4 mb-3 mb-md-0">
-                        <img src="assets/timur.jpg" alt="Timur Abdrakhimov" class="img-fluid" style="border: 2px solid #000; max-width: 100%;">
+                        <img src="assets/ava.png" alt="Timur Abdrakhimov" class="img-fluid" style="border: 2px solid #000; max-width: 100%;">
                     </div>
                     <div class="col-md-8">
                         <p>I create interactive experiences where code, design, and world-building come together.</p>
                         <p>Over the past years, I've released apps and games built with Unity, SwiftUI, RealityKit, and MAUI, shipped products to the App Store, showed projects at Tokyo Game Show, and worked across AR/VR with companies in the US, Europe, and Japan.</p>
                         <p><strong>I'm a developer, product thinker, and creator of digital worlds.</strong></p>
                         <p>I love making things people can explore, touch, and experience.</p>
+                        <hr style="border: 1px solid #000; margin: 20px 0;">
+                        <p><strong>For collaborations, consulting, or hiring:</strong></p>
+                        <div style="margin: 15px 0;">
+                            <a href="mailto:timskap@gmail.com" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/envelope_closed-1.png" class="icon-16"> Email</a>
+                            <a href="https://t.me/Komalov" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/users-1.png" class="icon-16"> Telegram</a>
+                            <a href="https://www.linkedin.com/in/timur-abdrakhimov-85376bbb/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/internet_connection_wiz-5.png" class="icon-16"> LinkedIn</a>
+                        </div>
+                        <p style="font-size: 0.9em; color: #666;">Portfolio & social links available upon request.</p>
                     </div>
                 </div>
-                <hr style="border: 1px solid #000; margin: 20px 0;">
             </div>
         </div>
     </div>
@@ -105,7 +247,7 @@
     <div class="container" id="projects">
         <div class="card mb-4">
             <div class="card-header">
-                <h4 class="my-0 font-weight-normal"><img src="assets/icons/directory_folder_options-5.png" class="icon-16"> PROJECTS</h4>
+                <h4 class="my-0 font-weight-normal"><img src="assets/icons/directory_folder_options-5.png" class="icon-16"> Projects</h4>
             </div>
             <div class="card-body">
                 <div class="row mb-3">
@@ -119,7 +261,7 @@
                         <img src="assets/minimap.png" alt="Mini-Map Radar" class="project-preview-img" onclick="openInstallerWithStep(2)">
                     </div>
                     <div class="col-md-3 col-6 mb-3">
-                        <img src="assets/kreml-2gis.jpg" alt="2GIS Immersive" class="project-preview-img" onclick="openInstallerWithStep(3)">
+                        <img src="assets/kreml.png" alt="2GIS Immersive" class="project-preview-img" onclick="openInstallerWithStep(3)">
                     </div>
                 </div>
                 <div class="text-center">
@@ -145,8 +287,6 @@
             <div class="installer-body">
                 <div class="installer-sidebar">
                     <img src="assets/icons/directory_folder_options-5.png" class="installer-sidebar-icon" alt="Project Icon">
-                    <img src="assets/icons/computer-3.png" class="installer-sidebar-icon" alt="Computer Icon" style="width: 32px; height: 32px;">
-                    <img src="assets/icons/laptop_small-0.png" class="installer-sidebar-icon" alt="Laptop Icon" style="width: 32px; height: 32px;">
                 </div>
                 <div class="installer-content-area">
                     <!-- Step 1: Sobakistan -->
@@ -277,14 +417,51 @@
                             <li>VR launchers, content browsers, and simulators</li>
                         </ul>
                     </div>
+
+                    <!-- Step 6: Installation Progress -->
+                    <div class="installer-step" data-step="5">
+                        <div class="installer-step-title">Installing Projects</div>
+                        <div class="installer-step-description">
+                            Please wait while projects are being installed...
+                        </div>
+                        <div id="installationProgress" style="margin-top: 30px;">
+                            <div class="progress" style="height: 20px; border: 2px inset #d5d5d5; background: #fff; margin-bottom: 15px;">
+                                <div class="progress-bar progress-bar-blocks" id="progressBar" role="progressbar" style="width: 0%; height: 100%; background: #08216b; transition: width 0.1s linear;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 7: Installation Complete -->
+                    <div class="installer-step" data-step="6">
+                        <div id="installationComplete" style="margin-top: 20px; text-align: center;">
+                            <h5 style="color: #08216b; font-weight: bold;">Project Installation Complete</h5>
+                            <p>All of Timur Abdrakhimov’s projects have been successfully Viewed.</p>
+                            <p style="margin-top: 10px;">
+                                The following worlds are now available:
+                            </p>
+                            <ul style="display: inline-block; text-align: left; margin-top: 5px;">
+                                <li><strong>Sobakistan</strong> – dark satirical dog-state adventure</li>
+                                <li><strong>Gnomes & Knights</strong> – gloomy low-poly dark fantasy</li>
+                                <li><strong>Mini-Map Radar</strong> – game-styled Apple Watch minimap</li>
+                                <li><strong>2GIS Immersive & AR/VR</strong> – spatial experiences in Vision Pro & VR</li>
+                            </ul>
+                        
+                            <p style="margin-top: 10px; font-weight: bold;">
+                                Click <em>Finish</em> to close the Projects Installation Wizard.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
+            
             <div class="installer-footer">
+              
                 <div class="installer-progress" id="installerProgress">Step 1 of 5</div>
                 <div class="installer-nav-buttons">
                     <button class="btn btn-primary installer-btn" id="installerBackBtn" disabled>< Back</button>
                     <button class="btn btn-primary installer-btn" id="installerNextBtn">Next ></button>
                     <button class="btn btn-primary installer-btn" id="installerCancelBtn">Cancel</button>
+                    <button class="btn btn-primary installer-btn" id="installerReinstallBtn" style="display: none;">Reinstall</button>
                 </div>
             </div>
         </div>
@@ -294,7 +471,7 @@
     <div class="container" id="skills">
         <div class="card mb-4">
             <div class="card-header">
-                <h4 class="my-0 font-weight-normal"><img src="assets/icons/help_book_cool-1.png" class="icon-16"> TECHNICAL SKILLS</h4>
+                <h4 class="my-0 font-weight-normal"><img src="assets/icons/help_book_cool-1.png" class="icon-16"> Technical Skills</h4>
             </div>
             <div class="card-body">
                 <hr style="border: 1px solid #000; margin: 20px 0;">
@@ -321,7 +498,7 @@
             <div class="col-md-6 mb-4">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h4 class="my-0 font-weight-normal"><img src="assets/icons/msie1-4.png" class="icon-16"> APPEARANCES & HIGHLIGHTS</h4>
+                        <h4 class="my-0 font-weight-normal"><img src="assets/icons/msie1-4.png" class="icon-16"> Highlights</h4>
                     </div>
                     <div class="card-body">
                         <ul>
@@ -338,7 +515,7 @@
             <div class="col-md-6 mb-4">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h4 class="my-0 font-weight-normal"><img src="assets/icons/laptop_small-0.png" class="icon-16"> HOW I WORK</h4>
+                        <h4 class="my-0 font-weight-normal"><img src="assets/icons/laptop_small-0.png" class="icon-16"> How I Work</h4>
                     </div>
                     <div class="card-body">
                         <ul>
@@ -354,33 +531,15 @@
         </div>
     </div>
 
-    <!-- Contact Section -->
-    <div class="container" id="contact">
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal"><img src="assets/icons/envelope_closed-1.png" class="icon-16"> CONTACTS</h4>
-            </div>
-            <div class="card-body">
-                <p>For collaborations, consulting, or hiring:</p>
-                <p><strong>Email:</strong> <a href="mailto:timskap@gmail.com" target="_blank">timskap@gmail.com</a></p>
-                <p><strong>Telegram:</strong> <a href="https://t.me/Komalov" target="_blank">@Komalov</a></p>
-                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/timur-abdrakhimov-85376bbb/" target="_blank">linkedin.com/in/timur-abdrakhimov-85376bbb</a></p>
-                <p>Portfolio & social links available upon request.</p>
-            </div>
-        </div>
-    </div>
-
-
-
     <!-- Footer -->
     <footer class="taskbar">
         <div class="row" style="margin-right: 0px;">
             <div class="col-8">
                 <a href="#about" class="btn start-button"><img src="assets/icons/users-1.png" class="icon-16">About</a>
                 <a href="#projects" class="btn start-button"><img src="assets/icons/directory_folder_options-5.png" class="icon-16">Projects</a>
-                <a href="#contact" class="btn start-button"><img src="assets/icons/envelope_closed-1.png" class="icon-16">Contact</a>
+                <a href="#about" class="btn start-button"><img src="assets/icons/envelope_closed-1.png" class="icon-16">Contact</a>
             </div>
-            <div class="col-4 time">Timur Abdrakhimov</div>
+            <div class="col-4 time">Timur Abdrakhimov <span id="currentTime"></span></div>
         </div>
 
     </footer>
@@ -392,6 +551,199 @@
     <script src="assets/snow.js"></script>
     <script src="assets/garlands.js"></script>
     <script src="assets/installer.js"></script>
+    <script>
+        // Startup screen with START button
+        (function() {
+            const startupOverlay = document.getElementById('startupOverlay');
+            const startButton = document.getElementById('startButton');
+            let startupAudio = null;
+            let soundLoaded = false;
+            
+            // Загружаем звук запуска Windows 95
+            function loadStartupSound() {
+                try {
+                    startupAudio = new Audio('assets/microsoft-windows-95-startup-sound.mp3');
+                    startupAudio.volume = 0.7;
+                    
+                    // Ждем загрузки звука
+                    startupAudio.addEventListener('canplaythrough', function() {
+                        soundLoaded = true;
+                    });
+                    
+                    // Обработка ошибок загрузки
+                    startupAudio.addEventListener('error', function() {
+                        console.log('Error loading startup sound');
+                        soundLoaded = true;
+                    });
+                    
+                    // Начинаем загрузку
+                    startupAudio.load();
+                    
+                } catch (error) {
+                    console.log('Error creating audio:', error);
+                    soundLoaded = true;
+                }
+            }
+            
+            // Воспроизводим звук и запускаем fade out
+            function startWindows() {
+                // Удаляем кнопку
+                if (startButton) {
+                    startButton.classList.add('hidden');
+                }
+                
+                // Применяем кастомный курсор
+                document.body.classList.add('custom-cursor');
+                
+                // Воспроизводим звук
+                if (startupAudio && soundLoaded) {
+                    try {
+                        startupAudio.play().catch(err => {
+                            console.log('Could not play startup sound:', err);
+                        });
+                    } catch (error) {
+                        console.log('Error playing startup sound:', error);
+                    }
+                }
+                
+                // Запускаем fade out
+                if (startupOverlay) {
+                    startupOverlay.classList.add('fade-out');
+                    
+                    // Удаляем overlay после завершения анимации
+                    startupOverlay.addEventListener('animationend', function() {
+                        startupOverlay.remove();
+                    }, { once: true });
+                }
+            }
+            
+            // Обработчик клика на кнопку START
+            if (startButton) {
+                startButton.addEventListener('click', startWindows);
+            }
+            
+            // Загружаем звук при загрузке страницы
+            window.addEventListener('load', function() {
+                loadStartupSound();
+            });
+            
+            // Загружаем звук сразу, если страница уже загружена
+            if (document.readyState === 'complete') {
+                loadStartupSound();
+            } else {
+                window.addEventListener('load', loadStartupSound);
+            }
+        })();
+    </script>
+    
+    <script>
+        // Play click sound on all links and buttons
+        (function() {
+            let clickSound = null;
+            
+            function playClickSound() {
+                try {
+                    // Create audio element if not exists
+                    if (!clickSound) {
+                        clickSound = new Audio('assets/sound_04676.mp3');
+                        clickSound.volume = 0.5;
+                    }
+                    
+                    // Reset and play
+                    clickSound.currentTime = 0;
+                    clickSound.play().catch(err => {
+                        console.log('Could not play click sound:', err);
+                    });
+                } catch (error) {
+                    console.log('Error playing click sound:', error);
+                }
+            }
+            
+            // Add click listeners to all links, buttons, and clickable images when page loads
+            function setupClickSounds() {
+                // Links
+                const links = document.querySelectorAll('a[href]');
+                links.forEach(link => {
+                    if (!link.hasAttribute('data-sound-attached')) {
+                        link.setAttribute('data-sound-attached', 'true');
+                        link.addEventListener('click', playClickSound);
+                    }
+                });
+                
+                // Buttons (including Next, Back, Cancel)
+                const buttons = document.querySelectorAll('button');
+                buttons.forEach(button => {
+                    if (!button.hasAttribute('data-sound-attached')) {
+                        button.setAttribute('data-sound-attached', 'true');
+                        button.addEventListener('click', playClickSound);
+                    }
+                });
+                
+                // Clickable images (with onclick, cursor pointer, or inside links)
+                const clickableImages = document.querySelectorAll('img[onclick], img[style*="cursor: pointer"], img[style*="cursor:pointer"], .project-preview-img, a img');
+                clickableImages.forEach(img => {
+                    if (!img.hasAttribute('data-sound-attached')) {
+                        img.setAttribute('data-sound-attached', 'true');
+                        img.addEventListener('click', playClickSound);
+                    }
+                });
+            }
+            
+            // Setup when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', setupClickSounds);
+            } else {
+                setupClickSounds();
+            }
+            
+            // Also setup for dynamically added links, buttons, and clickable images (like in the installer modal)
+            const observer = new MutationObserver(function(mutations) {
+                const newLinks = document.querySelectorAll('a[href]:not([data-sound-attached])');
+                newLinks.forEach(link => {
+                    link.setAttribute('data-sound-attached', 'true');
+                    link.addEventListener('click', playClickSound);
+                });
+                
+                const newButtons = document.querySelectorAll('button:not([data-sound-attached])');
+                newButtons.forEach(button => {
+                    button.setAttribute('data-sound-attached', 'true');
+                    button.addEventListener('click', playClickSound);
+                });
+                
+                const newClickableImages = document.querySelectorAll('img[onclick]:not([data-sound-attached]), img[style*="cursor: pointer"]:not([data-sound-attached]), img[style*="cursor:pointer"]:not([data-sound-attached]), .project-preview-img:not([data-sound-attached]), a img:not([data-sound-attached])');
+                newClickableImages.forEach(img => {
+                    img.setAttribute('data-sound-attached', 'true');
+                    img.addEventListener('click', playClickSound);
+                });
+            });
+            
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        })();
+    </script>
+    
+    <script>
+        // Update current time in footer
+        (function() {
+            function updateTime() {
+                const timeElement = document.getElementById('currentTime');
+                if (timeElement) {
+                    const now = new Date();
+                    const hours = now.getHours().toString().padStart(2, '0');
+                    const minutes = now.getMinutes().toString().padStart(2, '0');
+                    const seconds = now.getSeconds().toString().padStart(2, '0');
+                    timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+                }
+            }
+            
+            // Update immediately and then every second
+            updateTime();
+            setInterval(updateTime, 1000);
+        })();
+    </script>
 </body>
 
 </html>
+

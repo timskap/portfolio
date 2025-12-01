@@ -155,3 +155,51 @@
     justify-content: center;
 }
 
+/* Progress bar styles */
+.progress {
+    height: 20px;
+    border: 2px inset #d5d5d5;
+    background: #fff;
+    box-shadow: -1px -1px 0 0 #828282;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: #08216b;
+    transition: width 0.1s linear;
+}
+
+.progress-bar-blocks {
+    background-image: repeating-linear-gradient(
+        90deg,
+        #08216b 0px,
+        #08216b 8px,
+        #0a2a7f 8px,
+        #0a2a7f 16px
+    );
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+/* Installation overlay to block interface */
+.installer-installing {
+    pointer-events: none;
+    position: relative;
+}
+
+.installer-installing::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+}
+
+.installer-installing .installer-content-area {
+    pointer-events: none;
+}
+
