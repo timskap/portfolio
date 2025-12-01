@@ -24,6 +24,14 @@
             background-repeat: repeat;
             background-attachment: fixed;
         }
+        
+        .project-preview-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border: 2px solid #000;
+            cursor: pointer;
+        }
     </style>
 
 </head>
@@ -102,16 +110,16 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col-md-3 col-6 mb-3">
-                        <img src="assets/Sobarkistan Screen 1.png" alt="Sobakistan" class="img-fluid" style="border: 2px solid #000; cursor: pointer;" onclick="openInstallerWithStep(0)">
+                        <img src="assets/Sobarkistan Screen 1.png" alt="Sobakistan" class="project-preview-img" onclick="openInstallerWithStep(0)">
                     </div>
                     <div class="col-md-3 col-6 mb-3">
-                        <img src="assets/gnomesAndKnights.avif" alt="Gnomes And Knights" class="img-fluid" style="border: 2px solid #000; cursor: pointer;" onclick="openInstallerWithStep(1)">
+                        <img src="assets/gnomesAndKnights.avif" alt="Gnomes And Knights" class="project-preview-img" onclick="openInstallerWithStep(1)">
                     </div>
                     <div class="col-md-3 col-6 mb-3">
-                        <img src="https://mini-map.app/og-image.png" alt="Mini-Map Radar" class="img-fluid" style="border: 2px solid #000; cursor: pointer;" onerror="this.style.display='none'" onclick="openInstallerWithStep(2)">
+                        <img src="assets/minimap.png" alt="Mini-Map Radar" class="project-preview-img" onclick="openInstallerWithStep(2)">
                     </div>
                     <div class="col-md-3 col-6 mb-3">
-                        <img src="assets/kreml-2gis.jpg" alt="2GIS Immersive" class="img-fluid" style="border: 2px solid #000; cursor: pointer;" onclick="openInstallerWithStep(3)">
+                        <img src="assets/kreml-2gis.jpg" alt="2GIS Immersive" class="project-preview-img" onclick="openInstallerWithStep(3)">
                     </div>
                 </div>
                 <div class="text-center">
@@ -145,8 +153,17 @@
                     <div class="installer-step active" data-step="0">
                         <div class="installer-step-title">Sobakistan: The Land of Dogs</div>
                         <div class="installer-step-description">
-                            Dark satirical narrative adventure about a closed dog-state. Unity, PC, Narrative Adventure.
+                          Dark satirical narrative adventure about a closed dog-state. Unity, PC, Narrative Adventure.
+                      </div>
+                        <div style="margin: 20px 0;">
+                            <a href="https://sobakistan.com/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/internet_connection_wiz-5.png" class="icon-16"> Website</a>
+                            <a href="https://store.steampowered.com/app/3742720/Sobakistan_The_Land_of_Dogs/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/directory_folder_options-5.png" class="icon-16"> Steam</a>
+                            <a href="https://steamcommunity.com/app/3742720" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/users-1.png" class="icon-16"> Community</a>
+                            <a href="https://globalcomix.com/c/sobakistan" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/help_book_cool-1.png" class="icon-16"> Comic</a>
+                            <a href="https://adventuregamehotspot.com/game/1690/sobakistan-the-land-of-dogs" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/msie1-4.png" class="icon-16"> Feature</a>
+                            <a href="https://www.chalgyr.com/2025/09/news-sobakistan-playtestrelease.html" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/msie1-4.png" class="icon-16"> TGS Press</a>
                         </div>
+                       
                         <p>A dark, satirical world created together with comic artist Vitalii Terletskii. Presented at Tokyo Game Show and supported by hundreds of players worldwide.</p>
                         <p><strong>Highlights:</strong></p>
                         <ul>
@@ -160,22 +177,19 @@
                         <div style="margin: 20px 0;">
                             <img src="assets/Sobarkistan Screen 1.png" alt="Sobakistan Game Screenshot" class="img-fluid" style="border: 2px solid #000; max-width: 100%; margin-bottom: 15px;">
                         </div>
-                        <div style="margin: 20px 0;">
-                            <a href="https://sobakistan.com/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/internet_connection_wiz-5.png" class="icon-16"> Website</a>
-                            <a href="https://store.steampowered.com/app/3742720/Sobakistan_The_Land_of_Dogs/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/directory_folder_options-5.png" class="icon-16"> Steam</a>
-                            <a href="https://steamcommunity.com/app/3742720" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/users-1.png" class="icon-16"> Community</a>
-                            <a href="https://globalcomix.com/c/sobakistan" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/help_book_cool-1.png" class="icon-16"> Comic</a>
-                            <a href="https://adventuregamehotspot.com/game/1690/sobakistan-the-land-of-dogs" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/msie1-4.png" class="icon-16"> Feature</a>
-                            <a href="https://www.chalgyr.com/2025/09/news-sobakistan-playtestrelease.html" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/msie1-4.png" class="icon-16"> TGS Press</a>
-                        </div>
                     </div>
 
                     <!-- Step 2: Gnomes & Knights -->
                     <div class="installer-step" data-step="1">
                         <div class="installer-step-title">Gnomes And Knights</div>
                         <div class="installer-step-description">
-                            Gloomy low-poly dark fantasy about a knight hunting gnomes. Unity, iOS/Android.
+                          Gloomy low-poly dark fantasy about a knight hunting gnomes. Unity, iOS/Android.
+                      </div>
+                        <div style="margin: 20px 0;">
+                            <a href="https://apps.apple.com/tr/app/gnomes-and-knights/id6686394641" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/directory_folder_options-5.png" class="icon-16"> App Store</a>
+                            <a href="https://terletski.ru/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/internet_connection_wiz-5.png" class="icon-16"> Developer Site</a>
                         </div>
+                       
                         <p>A collaboration with Vitalii Terletskii and Artem Bizyaev. A fantasy world where players follow one of three story arcs — Greed, Noble, or Revenge.</p>
                         <p><strong>Features:</strong></p>
                         <ul>
@@ -187,18 +201,23 @@
                         <div style="margin: 20px 0;">
                             <img src="assets/gnomesAndKnights.avif" alt="Gnomes And Knights Screenshot" class="img-fluid" style="border: 2px solid #000; max-width: 100%; margin-bottom: 15px;">
                         </div>
-                        <div style="margin: 20px 0;">
-                            <a href="https://apps.apple.com/tr/app/gnomes-and-knights/id6686394641" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/directory_folder_options-5.png" class="icon-16"> App Store</a>
-                            <a href="https://terletski.ru/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/internet_connection_wiz-5.png" class="icon-16"> Developer Site</a>
-                        </div>
                     </div>
 
                     <!-- Step 3: Mini-Map Radar -->
                     <div class="installer-step" data-step="2">
                         <div class="installer-step-title">Mini-Map Radar</div>
                         <div class="installer-step-description">
-                            Apple Watch game-styled minimap inspired by GTA / Fallout. SwiftUI, watchOS, MapKit.
+                          Apple Watch game-styled minimap inspired by GTA / Fallout. SwiftUI, watchOS, MapKit.
+                      </div>
+                        <div style="margin: 20px 0;">
+                            <a href="https://mini-map.app/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/internet_connection_wiz-5.png" class="icon-16"> Website</a>
+                            <a href="https://apps.apple.com/tr/app/minimap-radar/id6467383947" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/directory_folder_options-5.png" class="icon-16"> App Store</a>
+                            <a href="https://www.producthunt.com/products/minimap-radar" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/msie1-4.png" class="icon-16"> Product Hunt</a>
+                            <a href="https://80.lv/articles/get-gta-vice-city-mini-map-on-your-apple-watch" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/help_book_cool-1.png" class="icon-16"> Article</a>
+                            <a href="https://t.me/s/radar_app?before=23" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/users-1.png" class="icon-16"> Telegram</a>
+                            <a href="https://x.com/minimap_app" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/msie1-4.png" class="icon-16"> Twitter</a>
                         </div>
+                      
                         <p>A fan-favorite Apple Watch app that transforms your real surroundings into a stylish mini-map inspired by classic games.</p>
                         <p><strong>Includes:</strong></p>
                         <ul>
@@ -209,15 +228,7 @@
                         </ul>
                         <p>One of my most recognizable projects.</p>
                         <div style="margin: 20px 0;">
-                            <img src="https://mini-map.app/og-image.png" alt="Mini-Map Radar Screenshot" style="max-width: 100%; height: auto; border: 2px solid #000; margin-bottom: 15px;" onerror="this.style.display='none'">
-                        </div>
-                        <div style="margin: 20px 0;">
-                            <a href="https://mini-map.app/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/internet_connection_wiz-5.png" class="icon-16"> Website</a>
-                            <a href="https://apps.apple.com/tr/app/minimap-radar/id6467383947" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/directory_folder_options-5.png" class="icon-16"> App Store</a>
-                            <a href="https://www.producthunt.com/products/minimap-radar" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/msie1-4.png" class="icon-16"> Product Hunt</a>
-                            <a href="https://80.lv/articles/get-gta-vice-city-mini-map-on-your-apple-watch" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/help_book_cool-1.png" class="icon-16"> Article</a>
-                            <a href="https://t.me/s/radar_app?before=23" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/users-1.png" class="icon-16"> Telegram</a>
-                            <a href="https://x.com/minimap_app" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/msie1-4.png" class="icon-16"> Twitter</a>
+                            <img src="assets/minimap.png" alt="Mini-Map Radar Screenshot" class="img-fluid" style="border: 2px solid #000; max-width: 100%; margin-bottom: 15px;">
                         </div>
                     </div>
 
@@ -225,8 +236,12 @@
                     <div class="installer-step" data-step="3">
                         <div class="installer-step-title">2GIS Immersive</div>
                         <div class="installer-step-description">
-                            3D encyclopedia of landmarks for Apple Vision Pro. SwiftUI, RealityKit, Reality Composer Pro, VisionOS.
+                          3D encyclopedia of landmarks for Apple Vision Pro. SwiftUI, RealityKit, Reality Composer Pro, VisionOS.
+                      </div>
+                        <div style="margin: 20px 0;">
+                            <a href="https://habr.com/ru/companies/2gis/articles/794777/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/help_book_cool-1.png" class="icon-16"> Case Study (Habr)</a>
                         </div>
+                    
                         <p>Created in just 8 days, this immersive app showcases 3D models of landmarks and destinations in spatial computing. Built for 2ГИС (2GIS), one of Russia's leading mapping and navigation companies.</p>
                         <p><strong>Highlights:</strong></p>
                         <ul>
@@ -238,9 +253,6 @@
                         </ul>
                         <div style="margin: 20px 0;">
                             <img src="assets/kreml-2gis.jpg" alt="2GIS Immersive - Moscow Kremlin in AR" class="img-fluid" style="border: 2px solid #000; max-width: 100%; margin-bottom: 15px;">
-                        </div>
-                        <div style="margin: 20px 0;">
-                            <a href="https://habr.com/ru/companies/2gis/articles/794777/" target="_blank" class="btn btn-primary" style="margin: 5px;"><img src="assets/icons/help_book_cool-1.png" class="icon-16"> Case Study (Habr)</a>
                         </div>
                     </div>
 
@@ -380,7 +392,6 @@
     <script src="assets/snow.js"></script>
     <script src="assets/garlands.js"></script>
     <script src="assets/installer.js"></script>
-    <script src="assets/midi-player.js"></script>
 </body>
 
 </html>
