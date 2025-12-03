@@ -18,20 +18,6 @@
     let isInstalling = false;
     let animationFrameId = null;
     let progressAudio = null;
-    let audioPreloaded = false;
-    
-    // Preload audio on first user interaction to satisfy browser autoplay policy
-    function preloadSuccessSound() {
-        if (audioPreloaded) return;
-        try {
-            progressAudio = new Audio('assets/tada-meme.mp3');
-            progressAudio.volume = 0.5;
-            progressAudio.load(); // Preload the audio
-            audioPreloaded = true;
-        } catch (error) {
-            console.log('Error preloading success sound:', error);
-        }
-    }
     
     function updateStep(step) {
         // Убеждаемся, что step - это число
@@ -206,21 +192,17 @@
     
     function playSuccessSound() {
         try {
-            // If audio wasn't preloaded, create it now
+            // Создаем или переиспользуем audio элемент
             if (!progressAudio) {
                 progressAudio = new Audio('assets/tada-meme.mp3');
                 progressAudio.volume = 0.5;
             }
             
-            // Reset and play
+            // Сбрасываем и воспроизводим
             progressAudio.currentTime = 0;
-            const playPromise = progressAudio.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.catch(err => {
-                    console.log('Could not play success sound (autoplay blocked):', err);
-                });
-            }
+            progressAudio.play().catch(err => {
+                console.log('Could not play success sound:', err);
+            });
         } catch (error) {
             console.log('Error playing success sound:', error);
         }
@@ -242,8 +224,6 @@
     }
     
     function openInstaller(step = 0) {
-        // Preload audio on user interaction (opening installer)
-        preloadSuccessSound();
         modal.classList.add('show');
         updateStep(step);
     }
@@ -266,11 +246,6 @@
     
     function nextStep() {
         if (isInstalling) return; // Блокируем нажатия во время установки
-        
-        // Preload audio before installation step (step 4 -> 5)
-        if (currentStep === 4) {
-            preloadSuccessSound();
-        }
         
         if (currentStep < totalSteps - 1) {
             updateStep(currentStep + 1);
