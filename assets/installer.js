@@ -253,6 +253,11 @@
             // На последней странице (7) Finish закрывает окно
             closeInstaller();
         }
+        
+        // Remove focus from button after click (delayed to ensure it happens after event processing)
+        setTimeout(() => {
+            if (nextBtn) nextBtn.blur();
+        }, 0);
     }
     
     function prevStep() {
