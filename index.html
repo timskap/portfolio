@@ -192,6 +192,55 @@
         .start-button-windows.hidden {
             display: none;
         }
+        
+        /* Clippy-style GIF container */
+        .clippy-gif {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            display: none;
+            animation: clippyAppear 0.5s ease-out;
+        }
+        
+        .clippy-gif.show {
+            display: block;
+        }
+        
+        .clippy-gif.fade-out {
+            animation: clippyFadeOut 1s ease-out forwards;
+        }
+        
+        .clippy-gif img {
+            width: 450px;
+            height: auto;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+        }
+        
+        @keyframes clippyAppear {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes clippyFadeOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
     </style>
 
 </head>
@@ -213,6 +262,11 @@
     
     <!-- Garlands Container -->
     <div class="garlands-container" id="garlandsContainer"></div>
+    
+    <!-- Clippy GIF Container -->
+    <div class="clippy-gif" id="clippyGif">
+        <img src="assets/background_removed-2.gif" alt="Clippy">
+    </div>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light navbar-95 ">
@@ -590,6 +644,7 @@
     <script src="assets/garlands.js"></script>
     <script src="assets/i18n.js"></script>
     <script src="assets/installer.js"></script>
+    <script src="assets/clippy-gif.js"></script>
     <script>
         // Startup screen with START button
         (function() {
@@ -653,6 +708,11 @@
                     startupOverlay.addEventListener('animationend', function() {
                         startupOverlay.remove();
                     }, { once: true });
+                }
+                
+                // Показываем Clippy GIF через 10 секунд
+                if (window.initClippyGif) {
+                    window.initClippyGif(10000, 7000, 3000); // showDelay: 10s, pauseDelay: 7s, fadeDelay: 3s
                 }
             }
             
