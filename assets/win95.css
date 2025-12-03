@@ -75,7 +75,7 @@ Scrollbar (only chrome & safari)
 
 */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 0px;
 }
 ::-webkit-scrollbar-button:end:increment,::-webkit-scrollbar-button:start:decrement {
     display: block
