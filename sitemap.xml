@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    
+    <!-- Main Portfolio Page -->
+    <url>
+        <loc>https://timur.abdrakhimov.dev/</loc>
+        <lastmod>2025-12-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>1.0</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="https://timur.abdrakhimov.dev/" />
+        <xhtml:link rel="alternate" hreflang="ru" href="https://timur.abdrakhimov.dev/?lang=ru" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://timur.abdrakhimov.dev/" />
+        <image:image>
+            <image:loc>https://timur.abdrakhimov.dev/assets/preview.png</image:loc>
+            <image:title>Timur Abdrakhimov Portfolio Preview</image:title>
+            <image:caption>Game Developer and VR/AR Expert portfolio - Creator of Sobakistan, Mini-Map Radar</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://timur.abdrakhimov.dev/assets/ava.png</image:loc>
+            <image:title>Timur Abdrakhimov Profile Photo</image:title>
+            <image:caption>Timur Abdrakhimov - Game Developer, Unity and VR/AR Expert</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- About Section (anchor) -->
+    <url>
+        <loc>https://timur.abdrakhimov.dev/#about</loc>
+        <lastmod>2025-12-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Projects Section (anchor) -->
+    <url>
+        <loc>https://timur.abdrakhimov.dev/#projects</loc>
+        <lastmod>2025-12-03</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+        <image:image>
+            <image:loc>https://timur.abdrakhimov.dev/assets/Sobarkistan%20Screen%201.png</image:loc>
+            <image:title>Sobakistan: The Land of Dogs</image:title>
+            <image:caption>Dark satirical narrative adventure game - Featured at Tokyo Game Show</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://timur.abdrakhimov.dev/assets/gnomesAndKnights.avif</image:loc>
+            <image:title>Gnomes And Knights</image:title>
+            <image:caption>Low-poly dark fantasy mobile game for iOS and Android</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://timur.abdrakhimov.dev/assets/minimap.png</image:loc>
+            <image:title>Mini-Map Radar</image:title>
+            <image:caption>GTA-style minimap for Apple Watch - Viral navigation app</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://timur.abdrakhimov.dev/assets/kreml.png</image:loc>
+            <image:title>2GIS Immersive</image:title>
+            <image:caption>VisionOS 3D landmark experience for Apple Vision Pro</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- Skills Section (anchor) -->
+    <url>
+        <loc>https://timur.abdrakhimov.dev/#skills</loc>
+        <lastmod>2025-12-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+</urlset>

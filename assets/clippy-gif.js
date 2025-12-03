@@ -12,9 +12,9 @@
      * @param {number} fadeDelay - Delay in milliseconds after pausing before fading out (default: 3000)
      */
     function initClippyGif(showDelay, pauseDelay, fadeDelay) {
-        showDelay = showDelay || 10000; // Default 10 seconds
-        pauseDelay = pauseDelay || 7000; // Default 7 seconds
-        fadeDelay = fadeDelay || 3000; // Default 3 seconds
+        showDelay = 9500; // Default 10 seconds
+        pauseDelay =  6500; // Default 7 seconds
+        fadeDelay = 1500; // Default 3 seconds
         
         setTimeout(function() {
             const clippyGif = document.getElementById('clippyGif');
