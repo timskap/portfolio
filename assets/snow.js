@@ -2,8 +2,8 @@
     const snowContainer = document.getElementById('snowContainer');
     if (!snowContainer) return;
     
-    const snowflakeSymbols = ['❄', '❅', '❆'];
-    const SNOWFLAKE_COUNT = 50; // Фиксированное количество снежинок
+    // Уменьшаем количество для лучшей производительности
+    const SNOWFLAKE_COUNT = 35;
     
     function createSnowflakes() {
         const fragment = document.createDocumentFragment();
@@ -11,22 +11,23 @@
         for (let i = 0; i < SNOWFLAKE_COUNT; i++) {
             const snowflake = document.createElement('div');
             snowflake.className = 'snowflake';
-            snowflake.textContent = snowflakeSymbols[Math.floor(Math.random() * snowflakeSymbols.length)];
+            // Используем простой символ вместо emoji для производительности
+            snowflake.textContent = '•';
             
-            // Случайные параметры
-            const size = 0.5 + Math.random() * 1; // 0.5em - 1.5em
+            const size = 20 + Math.random() * 4; // 4-12px
             const left = Math.random() * 100;
-            const duration = 5 + Math.random() * 10; // 5-15 секунд
-            const delay = Math.random() * -15; // Отрицательная задержка для старта в разных позициях
-            const drift = -30 + Math.random() * 60; // Отклонение по X: -30px до +30px
+            const duration = 8 + Math.random() * 12; // 8-20 секунд
+            const delay = Math.random() * -20;
+            const drift = -20 + Math.random() * 40;
+            const opacity = 0.4 + Math.random() * 0.6;
             
             snowflake.style.cssText = `
-                left: ${left}%;
-                font-size: ${size}em;
-                animation-duration: ${duration}s;
-                animation-delay: ${delay}s;
-                --drift: ${drift}px;
-                opacity: ${0.5 + Math.random() * 0.5};
+                left:${left}%;
+                font-size:${size}px;
+                animation-duration:${duration}s;
+                animation-delay:${delay}s;
+                --drift:${drift}px;
+                opacity:${opacity};
             `;
             
             fragment.appendChild(snowflake);
@@ -35,7 +36,6 @@
         snowContainer.appendChild(fragment);
     }
     
-    // Инициализация
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', createSnowflakes);
     } else {

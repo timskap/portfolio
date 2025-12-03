@@ -7,6 +7,7 @@
     pointer-events: none;
     z-index: 500;
     overflow: visible;
+    contain: layout style;
 }
 
 .garlands-canvas {
@@ -14,79 +15,65 @@
     top: 0;
     left: 0;
     pointer-events: none;
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
 }
 
 .garland-light {
     position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 0;
-    image-rendering: pixelated;
+    width: 6px;
+    height: 6px;
     border: 1px solid #000;
-    filter: drop-shadow(0 0 3px currentColor);
-    will-change: opacity, filter;
-    contain: layout style paint;
-    /* Центрируем лампочку на точке */
     transform: translate(-50%, -50%);
+    /* GPU layer */
+    backface-visibility: hidden;
+    contain: layout style paint;
 }
 
 .garland-light.on {
-    opacity: 1;
-    filter: drop-shadow(0 0 6px currentColor);
-    animation: glow-pulse 1.5s ease-in-out infinite;
+    animation: glow-pulse 2s ease-in-out infinite;
 }
 
 @keyframes glow-pulse {
-    0%, 100% {
-        opacity: 1;
-        filter: drop-shadow(0 0 6px currentColor);
-    }
-    50% {
-        opacity: 0.75;
-        filter: drop-shadow(0 0 3px currentColor);
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
 }
 
-/* Цвета лампочек */
+/* Цвета лампочек - используем box-shadow вместо filter */
 .garland-light.color-red {
     background-color: #ff0000;
-    color: #ff0000;
+    box-shadow: 0 0 4px #ff0000;
 }
 
 .garland-light.color-green {
     background-color: #00ff00;
-    color: #00ff00;
+    box-shadow: 0 0 4px #00ff00;
 }
 
 .garland-light.color-blue {
     background-color: #0000ff;
-    color: #0000ff;
+    box-shadow: 0 0 4px #0000ff;
 }
 
 .garland-light.color-yellow {
     background-color: #ffff00;
-    color: #ffff00;
+    box-shadow: 0 0 4px #ffff00;
 }
 
 .garland-light.color-cyan {
     background-color: #00ffff;
-    color: #00ffff;
+    box-shadow: 0 0 4px #00ffff;
 }
 
 .garland-light.color-magenta {
     background-color: #ff00ff;
-    color: #ff00ff;
+    box-shadow: 0 0 4px #ff00ff;
 }
 
 .garland-light.color-orange {
     background-color: #ff8800;
-    color: #ff8800;
+    box-shadow: 0 0 4px #ff8800;
 }
 
 .garland-light.color-white {
     background-color: #ffffff;
-    color: #ffffff;
+    box-shadow: 0 0 4px #ffffff;
 }

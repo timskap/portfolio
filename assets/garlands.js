@@ -6,7 +6,6 @@
     const garlands = [];
     let canvas, ctx;
     
-    // Класс для гирлянды (статичная арка)
     class Garland {
         constructor(startX, startY, endX, endY, color) {
             this.startX = startX;
@@ -16,81 +15,68 @@
             this.color = color;
             this.lights = [];
             
-            // Вычисляем параметры арки
             const distance = Math.abs(endX - startX);
-            const lightCount = Math.max(5, Math.floor(distance / 20));
-            const sag = Math.min(30, distance * 0.1);
-            
-            this.lightCount = lightCount;
-            this.sag = sag;
+            // Увеличиваем расстояние между лампочками: 20 -> 30
+            this.lightCount = Math.max(4, Math.floor(distance / 30));
+            this.sag = Math.min(25, distance * 0.08);
             
             this.createLights();
         }
         
-        // Вычисляем позицию точки на параболической арке
         getArcPoint(t) {
             const x = this.startX + (this.endX - this.startX) * t;
-            const sagFactor = 4 * t * (1 - t); // Максимум в середине (t=0.5)
-            const y = this.startY + this.sag * sagFactor;
+            const y = this.startY + this.sag * 4 * t * (1 - t);
             return { x, y };
         }
         
         createLights() {
-            for (let i = 0; i < this.lightCount; i++) {
-                const t = i / (this.lightCount - 1);
+            const fragment = document.createDocumentFragment();
+            const count = this.lightCount;
+            
+            for (let i = 0; i < count; i++) {
+                const t = i / (count - 1);
                 const point = this.getArcPoint(t);
                 
                 const light = document.createElement('div');
                 light.className = `garland-light color-${this.color} on`;
-                // Позиционируем через left/top и центрируем через transform
-                light.style.left = `${point.x}px`;
-                light.style.top = `${point.y}px`;
-                light.style.animationDelay = (i * 0.1) + 's';
+                light.style.cssText = `left:${point.x}px;top:${point.y}px;animation-delay:${i * 0.15}s`;
                 
-                garlandsContainer.appendChild(light);
+                fragment.appendChild(light);
                 this.lights.push(light);
             }
+            
+            garlandsContainer.appendChild(fragment);
         }
         
-        drawLines() {
+        drawLine() {
             if (!ctx) return;
             
             ctx.beginPath();
             ctx.strokeStyle = '#333';
             ctx.lineWidth = 2;
             
-            const steps = 30;
-            for (let i = 0; i <= steps; i++) {
-                const t = i / steps;
-                const point = this.getArcPoint(t);
-                
-                if (i === 0) {
-                    ctx.moveTo(point.x, point.y);
-                } else {
-                    ctx.lineTo(point.x, point.y);
-                }
+            // Меньше точек для отрисовки: 30 -> 20
+            for (let i = 0; i <= 20; i++) {
+                const point = this.getArcPoint(i / 20);
+                if (i === 0) ctx.moveTo(point.x, point.y);
+                else ctx.lineTo(point.x, point.y);
             }
             
             ctx.stroke();
         }
         
         remove() {
-            this.lights.forEach(light => {
-                if (light.parentNode) {
-                    light.parentNode.removeChild(light);
-                }
-            });
+            this.lights.forEach(l => l.remove());
+            this.lights.length = 0;
         }
     }
     
-    // Получаем позиции заголовков секций
     function getSectionHeaders() {
         const headers = [];
-        const cardHeaders = document.querySelectorAll('.card-header h4');
+        const scrollY = window.scrollY;
         
-        cardHeaders.forEach(header => {
+        document.querySelectorAll('.card-header h4').forEach(header => {
             const rect = header.getBoundingClientRect();
-            const scrollY = window.scrollY;
             headers.push({
                 startX: rect.left,
                 endX: rect.right,
@@ -101,70 +87,53 @@
         return headers;
     }
     
-    // Создаём гирлянды для каждого заголовка
-    function createGarlandsForHeaders() {
+    function createGarlands() {
         const headers = getSectionHeaders();
+        if (!headers.length) return;
         
-        if (headers.length === 0) return;
-        
-        headers.forEach(header => {
+        headers.forEach(h => {
             const color = colors[Math.floor(Math.random() * colors.length)];
-            const garland = new Garland(header.startX, header.y, header.endX, header.y, color);
-            garlands.push(garland);
+            garlands.push(new Garland(h.startX, h.y, h.endX, h.y, color));
         });
         
-        drawAllLines();
+        if (ctx && canvas) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            garlands.forEach(g => g.drawLine());
+        }
     }
     
-    // Рисуем все линии гирлянд
-    function drawAllLines() {
-        if (!ctx || !canvas) return;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        garlands.forEach(garland => garland.drawLines());
-    }
-    
-    // Canvas для отрисовки линий
     function initCanvas() {
         canvas = document.createElement('canvas');
         canvas.className = 'garlands-canvas';
         canvas.width = window.innerWidth;
         canvas.height = document.documentElement.scrollHeight;
         ctx = canvas.getContext('2d');
-        ctx.imageSmoothingEnabled = false;
         garlandsContainer.appendChild(canvas);
     }
     
-    // Пересоздаём гирлянды
-    function recreateGarlands() {
-        garlands.forEach(garland => garland.remove());
+    function recreate() {
+        garlands.forEach(g => g.remove());
         garlands.length = 0;
         
         if (canvas) {
             canvas.width = window.innerWidth;
             canvas.height = document.documentElement.scrollHeight;
-            ctx.imageSmoothingEnabled = false;
         }
         
-        createGarlandsForHeaders();
+        createGarlands();
     }
     
-    // Инициализация
     function init() {
         initCanvas();
+        setTimeout(createGarlands, 500);
         
-        setTimeout(() => {
-            createGarlandsForHeaders();
-        }, 500);
-        
-        // Обновляем только при изменении размера окна
-        let resizeTimeout;
+        let timeout;
         window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(recreateGarlands, 300);
+            clearTimeout(timeout);
+            timeout = setTimeout(recreate, 300);
         }, { passive: true });
     }
     
-    // Инициализация при загрузке
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
